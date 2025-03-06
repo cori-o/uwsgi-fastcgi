@@ -21,6 +21,7 @@ we need to edit default.conf file of nginx in container
 $ docker exec -it flask-nginx /bin/bash 
 ```
 Edit default.conf
+```bash
 $ apt-get update -y
 $ apt install vim -y
 $ cd /etc/nginx/conf.d
