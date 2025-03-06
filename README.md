@@ -40,6 +40,6 @@ $ curl http://localhost
 ```
 Expected output: Hello, FastCGI is working!
 
-* nginx and uwsgi must share a volume to connect via a Unix socket.
+! nginx and uwsgi must share a volume to connect via a Unix socket.
 Flask is executed through uwsgi, so ensure that uwsgi.ini or the uwsgi execution command is correctly configured.
 If Nginx returns a 502 Bad Gateway error, verify that uwsgi.sock is properly shared.
