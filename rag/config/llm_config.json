@@ -1,0 +1,7 @@
+{   
+    "model_type": "mistral",
+    "model_path": "/workspace/model/", 
+    "data_path": "/workspace/data/",
+    "embedding_model": "kakaobank/kf-deberta-base",
+    "language_model": "davidkim205/komt-mistral-7b-v1"
+}
