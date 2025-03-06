@@ -27,6 +27,7 @@ services:
 
 networks:
   flask_network:
-    external: true
+    driver: bridge
+    external: false
 volumes:
   shared_tmp:
