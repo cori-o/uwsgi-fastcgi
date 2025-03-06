@@ -6,7 +6,7 @@ services:
     volumes:
       - shared_tmp:/tmp
     networks:
-      - flask_network
+      - docker_network
     ports:
       - "9010:9010"   # FastCGI 포트
       - "5000:5000"    # Flask 직접 접근 포트 (필요시)
@@ -14,7 +14,7 @@ services:
     command: uwsgi --ini /app/uwsgi.ini
   nginx:
     image: nginx:latest
-    container_name: flask-nginx
+    container_name: nginx-container
     volumes:
       - shared_tmp:/tmp 
     ports:
@@ -22,10 +22,10 @@ services:
     depends_on:
       - flask
     networks:
-      - flask_network
+      - docker_network
 
 networks:
-  flask_network:
+  docker_network:
     driver: bridge
     external: false
 volumes:
