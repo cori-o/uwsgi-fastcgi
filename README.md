@@ -18,7 +18,9 @@ $ docker-compose up -d --build
 #### 3. Editing Nginx Configuration
 we need to edit default.conf file of nginx in container 
 ```bash
-$ docker exec -it flask-nginx /bin/bash  - access container
+$ docker exec -it flask-nginx /bin/bash 
+```
+Edit default.conf
 $ apt-get update -y
 $ apt install vim -y
 $ cd /etc/nginx/conf.d
@@ -31,12 +33,12 @@ $ docker-compose restart nginx
 ```
 
 
-#### 4. Verify the Setup 
+### Verify the Setup 
 ```
 $ curl http://localhost
 ```
 Expected output: Hello, FastCGI is working!
 
-** nginx and uwsgi must share a volume to connect via a Unix socket.
+* nginx and uwsgi must share a volume to connect via a Unix socket.
 Flask is executed through uwsgi, so ensure that uwsgi.ini or the uwsgi execution command is correctly configured.
 If Nginx returns a 502 Bad Gateway error, verify that uwsgi.sock is properly shared.
