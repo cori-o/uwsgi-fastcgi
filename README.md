@@ -6,14 +6,16 @@ A FastCGI-based setup for running Flask with uWSGI and Nginx using Docker Compos
 - Ensure that the Flask and Nginx services share the volume (shared_tmp) and network (flask_network).
 - Modify docker-compose.yml as necessary.
 
-### 2. Start Containers 
+
+#### 2. Start Containers 
 ```bash
 $ docker-compose up -d --build
 ```
 - The -d flag runs the containers in the background.
 - The --build flag rebuilds the containers if changes are made
 
-### 3. Editing Nginx Configuration
+
+#### 3. Editing Nginx Configuration
 we need to edit default.conf file of nginx in container 
 ```bash
 $ docker exec -it flask-nginx /bin/bash  - access container
@@ -28,7 +30,8 @@ Then restart nginx
 $ docker-compose restart nginx
 ```
 
-### 4. Verify the Setup 
+
+#### 4. Verify the Setup 
 ```
 $ curl http://localhost
 ```
