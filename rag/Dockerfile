@@ -3,7 +3,7 @@ FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
 LABEL description='Docker image created for rag architecture'
 
 # Docker 내 작업 경로 설정 
-WORKDIR /app 
+WORKDIR /rag 
 COPY . .
 
 # 한글 입력을 위한 환경 변수 설정 
