@@ -12,7 +12,7 @@ services:
       - "9010:9010"   # FastCGI 포트
       - "5000:5000"    # Flask 직접 접근 포트 (필요시)
     # command: uwsgi --socket 0.0.0.0:9010 --protocol=fastcgi --wsgi-file /fai-rag/app.py --callable app
-    command: uwsgi --ini /fai-rag/uwsgi.ini
+    command: uwsgi --ini /app/uwsgi.ini
   nginx:
     image: nginx:latest
     container_name: flask-nginx
