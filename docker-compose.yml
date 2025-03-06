@@ -4,7 +4,6 @@ services:
     build: .
     container_name: flask-container
     volumes:
-      - ./app:/app
       - shared_tmp:/tmp
     networks:
       - flask_network
