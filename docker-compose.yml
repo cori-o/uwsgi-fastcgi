@@ -1,0 +1,34 @@
+version: '3.5'
+services:  
+  flask:
+    build: .
+    container_name: flask-container
+    volumes:
+      - ./app:/app
+      - shared_tmp:/tmp
+    networks:
+      - flask_network
+    ports:
+      - "9010:9010"   # FastCGI 포트
+      - "5000:5000"    # Flask 직접 접근 포트 (필요시)
+    # command: uwsgi --socket 0.0.0.0:9010 --protocol=fastcgi --wsgi-file /fai-rag/app.py --callable app
+    command: uwsgi --ini /fai-rag/uwsgi.ini
+  
+  nginx:
+    image: nginx:latest
+    container_name: flask-nginx
+    volumes:
+      - shared_tmp:/tmp 
+    ports:
+      - "80:80"
+    depends_on:
+      - flask
+    networks:
+      - flask_network
+
+networks:
+  flask_network:
+    external: true
+
+volumes:
+  shared_tmp:
