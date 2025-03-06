@@ -13,7 +13,6 @@ services:
       - "5000:5000"    # Flask 직접 접근 포트 (필요시)
     # command: uwsgi --socket 0.0.0.0:9010 --protocol=fastcgi --wsgi-file /fai-rag/app.py --callable app
     command: uwsgi --ini /fai-rag/uwsgi.ini
-  
   nginx:
     image: nginx:latest
     container_name: flask-nginx
@@ -29,6 +28,5 @@ services:
 networks:
   flask_network:
     external: true
-
 volumes:
   shared_tmp:
