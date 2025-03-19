@@ -18,7 +18,7 @@ $ docker-compose up -d --build
 #### 3. Editing Nginx Configuration
 we need to edit default.conf file of nginx in container 
 ```bash
-$ docker exec -it flask-nginx /bin/bash 
+$ docker exec -it nginx-container /bin/bash 
 ```
 Edit default.conf
 ```bash
