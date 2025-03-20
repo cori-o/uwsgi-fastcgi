@@ -50,3 +50,14 @@ We can check the memory usage of each Docker container by running the following 
 docker stats --no-stream
 docker stats --no-stream flask-container
 ```
+If you notice a container consuming a large amount of memory, you can check the processes using the most memory inside the container by running the following command:
+```
+docker exec -it [container-id] /bin/bash
+ps -aux --sort=-%mem | head -20
+```
+
+### Container Shutdown 
+Once you have finished using them, you can stop the running containers with the following command
+```
+docker-compose down -v
+```
