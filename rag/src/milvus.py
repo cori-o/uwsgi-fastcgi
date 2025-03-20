@@ -60,13 +60,6 @@ class MilvusEnvManager(MilVus):
         super().__init__(args)
         self.logger = logging.getLogger(__name__)
 
-    def create_db(self, db_name):
-        if not db.has_database(db_name):
-            db.create_database(db_name)
-            self.logger.info(f'Created database: {db_name}')
-        else:
-            self.logger.warning(f'Database {db_name} already exists.')
-
     def create_collection(self, collection_name, schema, shards_num):
         collection = Collection(
             name=collection_name,
@@ -77,14 +70,34 @@ class MilvusEnvManager(MilVus):
         return collection 
 
     def create_field_schema(self, schema_name, dtype=None, dim=1024, max_length=200, is_primary=False):
-        data_type = self._get_data_type(dtype)
-        field_schema = FieldSchema(
-            name=schema_name,
-            dtype=data_type,
-            is_primary=is_primary,
-            dim=dim, 
-            max_length=max_length
-        )
+        data_type = self._get_data_type(dtype)   
+        if data_type == DataType.JSON:
+            field_schema = FieldSchema(
+                name=schema_name,
+                dtype=data_type,
+                is_primary=is_primary
+            )
+        elif data_type == DataType.INT64:
+            field_schema = FieldSchema(
+                name=schema_name,
+                dtype=data_type,
+                is_primary=is_primary,
+                default=0
+            )
+        elif data_type == DataType.FLOAT_VECTOR:
+            field_schema = FieldSchema(
+                name=schema_name,
+                dtype=data_type,
+                is_primariy=is_primary,
+                dim=dim 
+            )
+        elif data_type == DataType.VARCHAR:
+            field_schema = FieldSchema(
+                name=schema_name,
+                dtype=data_type,
+                is_primary=is_primary,
+                max_length=max_length 
+            )
         return field_schema
 
     def create_schema(self, field_schema_list, desc, enable_dynamic_field=True):
@@ -98,9 +111,9 @@ class MilvusEnvManager(MilVus):
 
     def create_index(self, collection, field_name):
         index_params = {
-            "metric_type": "L2",
-            "index_type": "IVF_FLAT",
-            "params": {"nlist": 65536},
+            "metric_type": f"{self.db_config['search_metric']}",
+            "index_type": f"{self.db_config['index_type']}",
+            "params": {"nlist": f"{self.db_config['index_nlist']}"},
         }   
         collection.create_index(
             field_name=field_name,
