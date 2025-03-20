@@ -1,0 +1,6 @@
+{   
+    "search_metric": "COSINE",
+    "index_nlist": 65536, 
+    "index_type": "IVF_FLAT",
+    "port": "19530"
+}
