@@ -5,19 +5,34 @@ from pymilvus import connections
 from .data_p import DataProcessor
 import logging
 
-class MilVus():
-    def __init__(self, args):
-        self.ip_addr = args['ip_addr'] 
-        self.port = '19530'
+class MilVus:
+    _connected = False 
+    def __init__(self, db_config):
+        self.db_config = db_config 
+        self.ip_addr = db_config['ip_addr'] 
+        self.port = db_config['port']
+        self.set_env()
+
+        if not MilVus._connected:
+            self.set_env()
+            MilVus._connected = True  # 연결 상태 업데이트
 
     def set_env(self):
         self.client = MilvusClient(
-            uri="http://" + self.ip_addr + ":19530", port=19530
+            uri="http://" + self.ip_addr + ":19530", port=self.port
         )
+        try:
+            conn = connections.get_connection("default")
+            if conn is not None and conn.connected():
+                print("Milvus already connected. Skipping reconnection.")
+                return
+        except Exception:
+            pass  # 연결이 없으면 새로운 연결 생성
+
         self.conn = connections.connect(
             alias="default", 
-            host= self.ip_addr,  # 'finger-milvus-standalone' 
-            port='19530'
+            host= self.ip_addr,   # 'milvus-standalone', 
+            port=self.port
         )
 
     def _get_data_type(self, dtype):
