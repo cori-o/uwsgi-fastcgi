@@ -136,23 +136,23 @@ class MilvusEnvManager(MilVus):
             pass
     
 
-class DataMilVus(DataProcessor):   #  args: (DataProcessor)
+class DataMilVus(MilVus):   #  args: (DataProcessor)
     '''
     구축된 Milvus DB에 대한 data search, insert 등 작업 수행
     '''
-    def __init__(self, args):
-        super().__init__(args)
-        self.args = args
-
-    def set_env(self):
-        self.client = MilvusClient(
-            uri="http://" + self.args.ip_addr + ":19530", port=19530
-        )
-        self.conn = connections.connect(
-            alias="default", 
-            host=self.args.ip_addr, 
-            port='19530'
-        )
+    def __init__(self, db_config):
+        super().__init__(db_config)
+    
+    def delete_data(self, filter, collection_name, filter_type='varchar'):
+        '''
+        ids: int  - 3  
+        expr: str  - "doc_id == 'doc_test'"  
+        '''
+        collection = Collection(collection_name)
+        if filter_type == 'int':        
+            collection.delete(ids=[filter])
+        elif filter_type == 'varchar':
+            collection.delete(expr=filter)
 
     def insert_data(self, m_data, collection_name, partition_name=None):
         collection = Collection(collection_name)
@@ -161,11 +161,11 @@ class DataMilVus(DataProcessor):   #  args: (DataProcessor)
     def get_len_data(self, collection):
         print(collection.num_entities)
 
-    def set_search_params(self, query_emb, anns_field='text_emb', metric_type="L2", expr=None, limit=5, output_fields=None, consistency_level="Strong"):
+    def set_search_params(self, query_emb, anns_field='text_emb', expr=None, limit=5, output_fields=None, consistency_level="Strong"):
         self.search_params = {
             "data": [query_emb],
             "anns_field": anns_field, 
-            "param": {"metric_type": metric_type, "params": {"nprobe": 0}, "offset": 0},
+            "param": {"metric_type": self.db_config['search_metric'], "params": {"nprobe": 0}, "offset": 0},
             "limit": limit,
             "expr": expr, 
             "output_fields": [output_fields],
@@ -187,7 +187,15 @@ class DataMilVus(DataProcessor):   #  args: (DataProcessor)
     def decode_search_result(self, search_result):
         # print(f'ids: {search_result[0][0].id}')
         # print(f"entity: {search_result[0][0].entity.get('text')}") 
-        return search_result[0][0].entity.get('text')
+        texts = [] 
+        ids = []
+        distances = [] 
+        for idx in range(len(search_result[0])):
+            text = search_result[0][idx].entity.get('text') 
+            doc_id = search_result[0][idx].entity.get('id')
+            distance = search_result[0][idx].entity.get('distance')
+            texts.append(text)
+        return texts
 
     def rerank_data(self, search_result):
         pass 
