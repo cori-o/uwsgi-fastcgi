@@ -29,7 +29,8 @@ class MilVus():
             return DataType.FLOAT_VECTOR
         return None
 
-    def get_partition_info(self, collection):
+    def get_partition_info(self, collection_name):
+        collection = Collection(collection_name)
         self.partitions = collection.partitions 
         self.partition_names = [] 
         self.partition_entities_num = [] 

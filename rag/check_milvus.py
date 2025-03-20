@@ -23,7 +23,7 @@ def main(args):
         print(f'[Info] collection {args.collection_name}')
         milvus_db.get_collection_info(args.collection_name)
         print(f'[Info] partition')
-        milvus_db.get_partition_info(collection)
+        milvus_db.get_partition_info(args.collection_name)
         print(dict(zip(milvus_db.partition_names, milvus_db.partition_entities_num))) 
     elif args.task_name == 'create':   # create partition 
         try:
