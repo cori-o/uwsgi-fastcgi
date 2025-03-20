@@ -19,6 +19,9 @@ def main(args):
     milvus_db.set_env()
     print(f'client: {milvus_db.client}')
     
+    '''
+    customize your field schema
+    '''
     data_doc_id = milvus_db.create_field_schema('doc_id', dtype='VARCHAR', is_primary=True, max_length=1024)
     data_passage_id = milvus_db.create_field_schema('passage_id', dtype='INT64')
     data_domain = milvus_db.create_field_schema('domain', dtype='VARCHAR', max_length=32)
@@ -29,7 +32,7 @@ def main(args):
     data_tags = milvus_db.create_field_schema('tags', dtype='JSON')
     schema_field_list = [data_doc_id, data_passage_id, data_domain, data_title, data_text, data_text_emb, data_info, data_tags]
 
-    schema = milvus_db.create_schema(schema_field_list, 'schema for fai-rag, using fastcgi')
+    schema = milvus_db.create_schema(schema_field_list, 'schema for rag, using fastcgi')
     collection = milvus_db.create_collection(args.collection_name, schema, shards_num=2)
     milvus_db.get_collection_info(args.collection_name)
     milvus_db.create_index(collection, field_name='text_emb')   # doc_id 필드에 index 생성 
