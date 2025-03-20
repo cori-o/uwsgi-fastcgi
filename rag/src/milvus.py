@@ -32,6 +32,9 @@ class MilVus():
         else:
             raise ValueError(f"Unsupported data type: {dtype}")
 
+    def get_list_collection(self):
+        return utility.list_collections()
+
     def get_partition_info(self, collection_name):
         collection = Collection(collection_name)
         self.partitions = collection.partitions 
@@ -43,14 +46,13 @@ class MilVus():
             self.partition_entities_num.append(partition.num_entities)
 
     def get_collection_info(self, collection_name):
-        print(f'collection info')
         collection = Collection(collection_name)
-        print(f'schema info: {collection.schema}') 
-        print(f'collection name: {collection.name}')
-        print(f'is collection empty ?: {collection.is_empty}')
-        print(f'num of data: {collection.num_entities}')
-        print(f'primary key of collection: {collection.primary_field}')
-        print(f'partition of collection: {collection.partition}')
+        self.collection_schema = collection.schema 
+        self.collection_name = collection.name 
+        self.collection_is_empty = collection.is_empty 
+        self.collection_primary_key = collection.primary_field
+        self.collection_partitions = collection.partition
+        self.num_entities = collection.num_entities
 
 
 class MilvusEnvManager(MilVus):
