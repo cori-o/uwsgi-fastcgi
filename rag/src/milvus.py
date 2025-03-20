@@ -21,13 +21,16 @@ class MilVus():
         )
 
     def _get_data_type(self, dtype):
-        if dtype == 'int':
-            return DataType.INT64 
-        elif dtype == 'str':
-            return DataType.VARCHAR
-        elif dtype == 'float':
+        if dtype == "FLOAT_VECTOR":
             return DataType.FLOAT_VECTOR
-        return None
+        elif dtype == "INT64":
+            return DataType.INT64
+        elif dtype == "VARCHAR":
+            return DataType.VARCHAR
+        elif dtype == "JSON":
+            return DataType.JSON  # JSON 타입 추가
+        else:
+            raise ValueError(f"Unsupported data type: {dtype}")
 
     def get_partition_info(self, collection_name):
         collection = Collection(collection_name)
