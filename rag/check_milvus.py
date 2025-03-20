@@ -25,7 +25,6 @@ def main(args):
         print(f'[Info] partition')
         milvus_db.get_partition_info(collection)
         print(dict(zip(milvus_db.partition_names, milvus_db.partition_entities_num))) 
-         
     elif args.task_name == 'create':   # create partition 
         try:
             assert args.partition_name != None, "생성하고자하는 partition 이름을 지정해주세요."
@@ -46,7 +45,7 @@ if __name__ == '__main__':
     cli_parser = argparse.ArgumentParser()
     cli_parser.add_argument('--config_path', type=str, default='./config/')
     cli_parser.add_argument('--config_name', type=str, default='db_config.json')
-    cli_parser.add_argument('--collection_name', type=str, default='rule_book')
+    cli_parser.add_argument('--collection_name', type=str, required=True)
     cli_parser.add_argument('--partition_name', type=str, default=None)
     cli_parser.add_argument('--task_name', type=str, default=None)
     cli_args = cli_parser.parse_args()
