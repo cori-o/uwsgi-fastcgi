@@ -16,7 +16,7 @@ class MilVus():
         )
         self.conn = connections.connect(
             alias="default", 
-            host='finger-milvus-standalone',   # self.ip_addr 
+            host= self.ip_addr,  # 'finger-milvus-standalone' 
             port='19530'
         )
 
