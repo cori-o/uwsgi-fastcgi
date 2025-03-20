@@ -32,7 +32,11 @@ Then restart nginx
 ```bash
 $ docker-compose restart nginx
 ```
-
+#### (optional) Kill all container 
+Once you have finished using them, you can stop the running containers with the following command
+```
+docker-compose down -v
+```
 
 ### Verify the Setup 
 ```
@@ -54,10 +58,4 @@ If you notice a container consuming a large amount of memory, you can check the 
 ```
 docker exec -it [container-id] /bin/bash
 ps -aux --sort=-%mem | head -20
-```
-
-### Container Shutdown 
-Once you have finished using them, you can stop the running containers with the following command
-```
-docker-compose down -v
 ```
