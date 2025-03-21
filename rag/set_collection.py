@@ -1,4 +1,4 @@
-from src import milvus, MilvusEnvManager
+from src import MilvusEnvManager
 from dotenv import load_dotenv
 import argparse
 import json
