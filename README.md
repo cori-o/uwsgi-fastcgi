@@ -14,6 +14,8 @@ $ docker-compose up -d --build
 - The -d flag runs the containers in the background.
 - The --build flag rebuilds the containers if changes are made
 
+#### 3. edit ./rag/.env 
+You need to set the ip_addr value in the .env file according to your development environment in order to connect to the Milvus container.
 
 ### Verify the Setup 
 ```
