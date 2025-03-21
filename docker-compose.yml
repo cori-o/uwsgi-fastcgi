@@ -18,7 +18,7 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - milvus_network
+      - docker_network
   minio:
     container_name: milvus-minio
     image: quay.io/minio/minio:latest
@@ -37,7 +37,7 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - milvus_network
+      - docker_network
   standalone:
     container_name: milvus-standalone
     image: milvusdb/milvus:v2.4.9
@@ -63,7 +63,7 @@ services:
       - "etcd"
       - "minio"
     networks:
-      - milvus_network
+      - docker_network
   milvus-manager:
     build: ./milvus-api
     container_name: milvus-manager
@@ -76,7 +76,7 @@ services:
     depends_on:
       - standalone
     networks:
-      - milvus_network
+      - docker_network
     ports:
       - "9010:9010"  # FastCGI용 포트
       - "5000:5000"  # 필요하면 Flask 직접 접근용
@@ -92,9 +92,10 @@ services:
     depends_on:
       - milvus-manager
     networks:
-      - milvus_network
+      - docker_network
 networks:
-  milvus_network:
-    external: true
+  docker_network:
+    driver: bridge
+    external: false
 volumes:
   shared_tmp:
