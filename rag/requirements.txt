@@ -24,4 +24,5 @@ pymysql
 datasets
 spacy
 pymilvus
+flagembedding
 semantic-router==0.0.25
