@@ -3,8 +3,10 @@ from pymilvus import connections, db
 from pymilvus import Collection, CollectionSchema, FieldSchema, utility
 import logging
 
+
 class MilVus:
-    _connected = False 
+    _connected = False
+
     def __init__(self, db_config):
         self.db_config = db_config 
         self.ip_addr = db_config['ip_addr'] 
