@@ -19,7 +19,8 @@ $ docker-compose up -d --build
 ```bash
 $ docker ps -a
 ```
-After running docker-compose up, both the nginx-container and flask-container should be up and running (e.g., 'Up 10 seconds').
+After running docker-compose up, both the nginx-container and flask-container should be up and running\
+(e.g., 'Up 10 seconds').
 
 #### !!(optional) Kill all container 
 Once you have finished using them, you can stop the running containers with the following command
