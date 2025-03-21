@@ -1,5 +1,5 @@
-# uwsgi-fastcgi
-A FastCGI-based setup for running Flask with uWSGI and Nginx using Docker Compose.
+# uwsgi-fastcgi-rag
+A FastCGI-based setup for running Flask with uWSGI and Nginx using Docker Compose, enhanced with Milvus and RAG
 
 ### Docker compose
 #### 1. Customize docker-compose.yml if needed 
@@ -28,6 +28,7 @@ Once you have finished using them, you can stop the running containers with the 
 docker-compose down -v
 ```
 
+
 ### Verify the Setup 
 ```
 $ curl http://localhost
@@ -37,6 +38,7 @@ Expected output: Hello, FastCGI is working!
 ! nginx and uwsgi must share a volume to connect via a Unix socket.
 Flask is executed through uwsgi, so ensure that uwsgi.ini or the uwsgi execution command is correctly configured.
 If Nginx returns a 502 Bad Gateway error, verify that uwsgi.sock is properly shared.
+
 
 ### Memory Usage Check 
 We can check the memory usage of each Docker container by running the following command:
