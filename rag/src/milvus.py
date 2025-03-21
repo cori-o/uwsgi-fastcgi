@@ -5,13 +5,11 @@ import logging
 
 class MilVus:
     _connected = False 
-
     def __init__(self, db_config):
         self.db_config = db_config 
         self.ip_addr = db_config['ip_addr'] 
         self.port = db_config['port']
         self.set_env()
-
         if not MilVus._connected:
             self.set_env()
             MilVus._connected = True  # 연결 상태 업데이트
@@ -26,11 +24,10 @@ class MilVus:
                 print("Milvus already connected. Skipping reconnection.")
                 return
         except Exception:
-            pass  # 연결이 없으면 새로운 연결 생성
-
+            pass     # 연결이 없으면 새로운 연결 생성
         self.conn = connections.connect(
             alias="default", 
-            host='finger-milvus-standalone',   # self.ip_addr 
+            host=self.ip_addr,    # 'milvus-standalone' 
             port=self.port
         )
 
@@ -42,7 +39,7 @@ class MilVus:
         elif dtype == "VARCHAR":
             return DataType.VARCHAR
         elif dtype == "JSON":
-            return DataType.JSON  # JSON 타입 추가
+            return DataType.JSON  
         else:
             raise ValueError(f"Unsupported data type: {dtype}")
 
@@ -219,21 +216,15 @@ class MilvusMeta():
     ''' 
     파일이름 - ID Code, 파일이름 - 영문이름 (파티션) 매핑 정보 관리 클래스 
     '''
-    def set_rulebook_map(self):
-        self.rulebook_id_code = {
-            '취업규칙': '00', 
-            '윤리규정': '01', 
-            '신여비교통비': '02', 
-            '경조금지급규정': '03',
-            '직무발명보상': '04',
-            '투자업무_운영관리': '05',
+    def set_partition_map(self):
+        self.partition_id_code = {
+            'partition_a': '00', 
+            'partition_b': '01', 
+            'partition_c': '03', 
         }
-        self.rulebook_kor_to_eng = {
-            '취업규칙': 'employment_rules',
-            '윤리규정': 'code_of_ethics',
-            '신여비교통비': 'transport_expenses',
-            '경조금지급규정': 'extra_expenditure',
-            '직무발명보상': 'ei_compensation',
-            '투자업무_운영관리': 'io_management'
+        self.partition_kor_to_eng = {
+            '파티션_a': 'partition_a',
+            '파티션_b': 'partition_b',
+            '파티션_c': 'partition_3',
         }
-        self.rulebook_eng_to_kor = {value: key for key, value in self.rulebook_kor_to_eng.items()}
+        self.partition_eng_to_kor = {value: key for key, value in self.partition_kor_to_eng.items()}
