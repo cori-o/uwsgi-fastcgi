@@ -17,7 +17,14 @@ $ docker-compose up -d --build
 #### 3. edit ./rag/.env 
 We need to set the ip_addr value in the ./rag/.env file according to our development environment in order to connect to the Milvus container
 
-### Verify the Setup 
+### RAG Milvus Setting
+#### 1. Set collection
+
+
+#### 2. check Milvus
+
+
+### Verify the Setup
 ```
 $ curl http://localhost
 ```
