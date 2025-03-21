@@ -24,4 +24,4 @@ pymysql
 datasets
 spacy
 pymilvus
-semantic-router
+semantic-router==0.0.25
