@@ -1,5 +1,3 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
-from transformers import TextStreamer, GenerationConfig
 from openai import OpenAI
 from abc import ABC, abstractmethod
 import numpy as np
@@ -95,4 +93,3 @@ class LLMOpenAI(Model):
         질문: {query} 
         """
         return self.rag_prompt_template.format(query=query, context=context)
-
