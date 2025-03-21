@@ -23,7 +23,6 @@ services:
       - flask
     networks:
       - docker_network
-
 networks:
   docker_network:
     driver: bridge
