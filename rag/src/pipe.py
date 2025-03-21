@@ -5,7 +5,7 @@ from pymilvus import Collection
 import json
 import os
 
-class EnvManager():
+class EnvManager:
     def __init__(self, args):
         self.args = args
         self.set_config()
@@ -34,7 +34,7 @@ class EnvManager():
         return emb_model         
 
 
-class InteractManager:
+class DBManager:
     def __init__(self, data_p=None, vectorenv=None, vectordb=None, emb_model=None, response_model=None, logger=None):
         '''
         vectordb = MilvusData - insert data, set search params, search data 
@@ -96,5 +96,4 @@ class InteractManager:
         self.vectordb.set_search_params(query_emb, limit=top_k, output_fields=output_fields)
         search_result = self.vectordb.search_data(collection, self.vectordb.search_params)
         text = self.vectordb.decode_search_result(search_result)
-        print(text)
         return text
