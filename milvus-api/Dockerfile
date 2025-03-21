@@ -1,9 +1,9 @@
 # 기본 Docker Image 설정   
 FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel    
-LABEL description='Docker image created for rag architecture'
+LABEL description='Docker image created for milvus-api architecture'
 
 # Docker 내 작업 경로 설정 
-WORKDIR /rag 
+WORKDIR /milvus-api 
 COPY . .
 
 # 한글 입력을 위한 환경 변수 설정 

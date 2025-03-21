@@ -18,7 +18,7 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - rag_network
+      - milvus_network
   minio:
     container_name: milvus-minio
     image: quay.io/minio/minio:latest
@@ -37,7 +37,7 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - rag_network
+      - milvus_network
   standalone:
     container_name: milvus-standalone
     image: milvusdb/milvus:v2.4.9
@@ -63,12 +63,12 @@ services:
       - "etcd"
       - "minio"
     networks:
-      - rag_network
-  rag:
-    build: ./rag
-    container_name: milvus-rag
+      - milvus_network
+  milvus-manager:
+    build: ./milvus-api
+    container_name: milvus-manager
     volumes:
-      - ./rag:/rag
+      - ./milvus-api:/milvus-api
       - shared_tmp:/tmp
     environment:
       - MILVUS_HOST=milvus-standalone
@@ -76,11 +76,11 @@ services:
     depends_on:
       - standalone
     networks:
-      - rag_network
+      - milvus_network
     ports:
       - "9010:9010"  # FastCGI용 포트
       - "5000:5000"  # 필요하면 Flask 직접 접근용
-    command: uwsgi --ini /rag/uwsgi.ini
+    command: uwsgi --ini /milvus-api/uwsgi.ini
   nginx:
     image: nginx:latest
     container_name: milvus-nginx
@@ -90,11 +90,11 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - rag
+      - milvus-manager
     networks:
-      - rag_network
+      - milvus_network
 networks:
-  rag_network:
+  milvus_network:
     external: true
 volumes:
   shared_tmp:
