@@ -15,25 +15,6 @@ $ docker-compose up -d --build
 - The --build flag rebuilds the containers if changes are made
 
 
-#### 3. Editing Nginx Configuration
-we need to edit default.conf file of nginx in container 
-```bash
-$ docker exec -it nginx-container /bin/bash 
-```
-Edit default.conf
-```bash
-$ apt-get update -y
-$ apt install vim -y
-$ cd /etc/nginx/conf.d
-$ vi default.conf
-```
-Replace the content of default.conf with the configuration from this repository.
-Then restart nginx 
-```bash
-$ docker-compose restart nginx
-```
-
-
 ### Verify the Setup 
 ```
 $ curl http://localhost
