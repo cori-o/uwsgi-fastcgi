@@ -15,24 +15,15 @@ $ docker-compose up -d --build
 - The --build flag rebuilds the containers if changes are made
 
 
-#### 3. Editing Nginx Configuration
-we need to edit default.conf file of nginx in container 
+### Check Docker status 
 ```bash
-$ docker exec -it nginx-container /bin/bash 
+$ docker ps -a
 ```
-Edit default.conf
-```bash
-$ apt-get update -y
-$ apt install vim -y
-$ cd /etc/nginx/conf.d
-$ vi default.conf
-```
-Replace the content of default.conf with the configuration from this repository.
-Then restart nginx 
-```bash
-$ docker-compose restart nginx
-```
-#### (optional) Kill all container 
+- Up (~ seconds)             0.0.0.0:80->80/tcp                                 nginx-container
+- Up (~ seconds)             0.0.0.0:5000->5000/tcp, 0.0.0.0:9010->9010/tcp     flask-container
+
+
+#### !!(optional) Kill all container 
 Once you have finished using them, you can stop the running containers with the following command
 ```
 docker-compose down -v
