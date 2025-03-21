@@ -1,4 +1,4 @@
-# uwsgi-fastcgi
+# uwsgi-fastcgi-milvus-api
 A FastCGI-based setup for running Flask with uWSGI and Nginx using Docker Compose
 
 ### Docker compose
