@@ -19,8 +19,8 @@ $ docker-compose up -d --build
 ```bash
 $ docker ps -a
 ```
-- Up (~ seconds)             0.0.0.0:80->80/tcp                                 nginx-container
-- Up (~ seconds)             0.0.0.0:5000->5000/tcp, 0.0.0.0:9010->9010/tcp     flask-container
+Up (~ seconds)             0.0.0.0:80->80/tcp                                 nginx-container
+Up (~ seconds)             0.0.0.0:5000->5000/tcp, 0.0.0.0:9010->9010/tcp     flask-container
 
 
 #### !!(optional) Kill all container 
