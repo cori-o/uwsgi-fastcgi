@@ -1,17 +1,17 @@
 from pymilvus import MilvusClient, DataType
 from pymilvus import connections, db
 from pymilvus import Collection, CollectionSchema, FieldSchema, utility
-from pymilvus import connections
-from .data_p import DataProcessor
 import logging
 
 class MilVus:
     _connected = False 
+
     def __init__(self, db_config):
         self.db_config = db_config 
         self.ip_addr = db_config['ip_addr'] 
         self.port = db_config['port']
         self.set_env()
+
         if not MilVus._connected:
             self.set_env()
             MilVus._connected = True  # 연결 상태 업데이트
@@ -27,9 +27,10 @@ class MilVus:
                 return
         except Exception:
             pass  # 연결이 없으면 새로운 연결 생성
+
         self.conn = connections.connect(
             alias="default", 
-            host= self.ip_addr,   # 'milvus-standalone', 
+            host='finger-milvus-standalone',   # self.ip_addr 
             port=self.port
         )
 
