@@ -19,9 +19,25 @@ We need to set the ip_addr value in the ./rag/.env file according to our develop
 
 ### RAG Milvus Setting
 #### 1. Set collection
+Enter the milvus-manager container and modify set_collection.py if needed:
+```
+$ docker exec -it milvus-manager /bin/bash
+$ vi set_collection.py
+```
 
+You can create a new collection by running:
+```
+$ python set_collection.py --collection_name [collection_name]
+```
 
 #### 2. check Milvus
+Use check_milvus.py to view collection/partition information, or to create/delete partitions.
+```
+$ python check_milvus.py --collection_name [collection_name]   # get collection, partition info
+$ python check_milvus.py --task_name create --collection_name [collection_name] --partition_name [partition_name]   # create partition
+$ python check_milvus.py --task_name delete --collection_name [collection_name] --partition_name [partition_name]   # delete partition
+$ python check_milvus.py --task_name drop --collection_name [collection_name]   # drop collection 
+```
 
 
 ### Verify the Setup
