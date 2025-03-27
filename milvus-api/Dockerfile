@@ -1,5 +1,5 @@
 # 기본 Docker Image 설정   
-FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel    
+FROM pytorch/pytorch:2.1.2-cuda11.8-cudnn8-devel
 LABEL description='Docker image created for milvus-api architecture'
 
 # Docker 내 작업 경로 설정 
@@ -16,4 +16,5 @@ RUN locale-gen ko_KR.UTF-8
 RUN apt-get install python3-pip -y
 RUN pip install --no-cache-dir uwsgi
 RUN pip install -r requirements.txt
+RUN pip install -U FlagEmbedding
 CMD ["uwsgi", "--socket", "0.0.0.0:9010", "--protocol=fastcgi", "--wsgi-file", "app.py", "--callable", "app"]
