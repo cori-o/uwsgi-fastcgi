@@ -14,7 +14,7 @@ $ docker-compose up -d --build
 - The -d flag runs the containers in the background
 - The --build flag rebuilds the containers if changes are made
 
-### RAG Milvus Setting
+### Milvus Setting
 #### 1. Set collection
 Enter the milvus-manager container and modify set_collection.py if needed:
 ```
