@@ -5,9 +5,9 @@ huggingface-hub
 ipykernel
 openai
 pandas
-uwsgi
 numpy<=2.0
 peft
+uwsgi
 pydantic
 milvus 
 tqdm
@@ -15,5 +15,4 @@ pymysql
 datasets
 spacy
 pymilvus
-flagembedding
 semantic-router==0.0.25
