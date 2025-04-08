@@ -1,5 +1,5 @@
 # 기본 Docker Image 설정   
-FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel    
+FROM pytorch:2.1.2-cuda11.8-cudnn8-devel 
 LABEL description='Docker image created for flask'
 
 # Docker 내 작업 경로 설정 
