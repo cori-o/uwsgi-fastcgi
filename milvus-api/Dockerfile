@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y locales && apt-get install -y build-ess
 RUN apt-get install curl -y
 RUN locale-gen ko_KR.UTF-8   
 RUN apt-get install python3-pip -y
-RUN pip install --no-cache-dir uwsgi
 RUN pip install -r requirements.txt
 RUN pip install -U FlagEmbedding
 CMD ["uwsgi", "--socket", "0.0.0.0:9010", "--protocol=fastcgi", "--wsgi-file", "app.py", "--callable", "app"]
